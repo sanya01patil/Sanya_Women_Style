@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanya's Women's Style App</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    :root {
+      --primary-pink: #ff69b4;
+      --light-pink: #ffb6c1;
+      --lighter-pink: #ffc0cb;
+      --bg-pink: #fff0f5;
+      --accent-pink: #e91e63;
+      --text-dark: #333;
+      --text-light: #666;
+    }
+
+    body {
+      background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    .main-navbar {
+      background: linear-gradient(135deg, var(--light-pink) 0%, var(--primary-pink) 100%);
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white !important;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.05);
+    }
+
+    .location-badge {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 8px 15px;
+      border-radius: 20px;
+      color: white;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .location-badge:hover {
+      background: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .search-container {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-wrapper {
+      display: flex;
+      background: white;
+      border-radius: 50px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .search-wrapper:focus-within {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+    }
+
+    .category-select {
+      border: none;
+      background: linear-gradient(135deg, #ffe4ec 0%, #ffc0cb 100%);
+      padding: 12px 15px;
+      font-weight: 500;
+      color: var(--text-dark);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      padding: 12px 20px;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .search-btn {
+      background: linear-gradient(135deg, var(--primary-pink) 0%, var(--accent-pink) 100%);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .search-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-icon-item {
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .nav-icon-item:hover {
+      transform: translateY(-3px);
+      color: #fff;
+    }
+
+    .nav-icon-item i {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .cart-badge {
+      position: relative;
+    }
+
+    .cart-badge::after {
+      content: '3';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent-pink);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== CATEGORY NAV ===== */
+    .category-nav {
+      background: linear-gradient(135deg, var(--lighter-pink) 0%, var(--light-pink) 100%);
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .category-item {
+      display: inline-block;
+      padding: 8px 20px;
+      margin: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 25px;
+      color: var(--text-dark);
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .category-item:hover {
+      background: white;
+      color: var(--accent-pink);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-pink) 0%, var(--accent-pink) 100%);
+      height: 400px;
+      margin: 30px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(255, 105, 180, 0.4);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content {
+      text-align: center;
+      color: white;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      animation: slideUp 1s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-btn {
+      background: white;
+      color: var(--accent-pink);
+      padding: 15px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.3s;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      color: var(--accent-pink);
+    }
+
+    .hero-decoration {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-decoration:nth-child(1) { top: -100px; left: -100px; }
+    .hero-decoration:nth-child(2) { bottom: -100px; right: -100px; animation-delay: 2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    /* ===== PRODUCT CARDS ===== */
+    .products-section {
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-pink);
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-pink), var(--accent-pink));
+      border-radius: 2px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 280px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--accent-pink);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(233, 30, 99, 0.8), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+
+    .product-content {
+      padding: 25px;
+      text-align: center;
+    }
+
+    .product-content h3 {
+      color: var(--accent-pink);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .product-content p {
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .product-btn {
+      background: linear-gradient(135deg, var(--primary-pink) 0%, var(--accent-pink) 100%);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .product-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+      color: white;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(135deg, var(--lighter-pink) 0%, var(--light-pink) 100%);
+      margin-top: 60px;
+      padding: 50px 0 0;
+    }
+
+    .footer-column h3 {
+      color: var(--accent-pink);
+      font-weight: 700;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    .footer-column a {
+      display: block;
+      color: var(--text-dark);
+      text-decoration: none;
+      margin: 10px 0;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+
+    .footer-column a:hover {
+      color: var(--accent-pink);
+      padding-left: 10px;
+    }
+
+    .footer-column i {
+      margin-right: 10px;
+      color: var(--accent-pink);
+      transition: transform 0.3s;
+    }
+
+    .footer-column a:hover i {
+      transform: scale(1.2);
+    }
+
+    .team-section {
+      background: linear-gradient(135deg, var(--primary-pink) 0%, var(--accent-pink) 100%);
+      padding: 30px;
+      margin: 30px 0 0;
+    }
+
+    .team-section h2 {
+      color: white;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .team-members {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .team-card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      min-width: 180px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .team-card h3 {
+      color: var(--accent-pink);
+      font-weight: 600;
+      margin-top: 15px;
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--light-pink), var(--primary-pink));
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      font-weight: 700;
+    }
+
+    .footer-bottom {
+      background: var(--accent-pink);
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-weight: 500;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+
+      .hero-section {
+        height: 300px;
+        margin: 20px 10px;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .navbar-brand {
+        font-size: 1.3rem;
+      }
+
+      .nav-icons {
+        gap: 10px;
+      }
+
+      .nav-icon-item i {
+        font-size: 1.2rem;
+      }
+
+      .nav-icon-item small {
+        font-size: 0.7rem;
+      }
+    }
+
+    /* ===== SCROLL TO TOP BUTTON ===== */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--primary-pink), var(--accent-pink));
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+      transition: all 0.3s;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.6);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-shopping-bag me-2"></i>Sanya's Style
+      </a>
+      
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" style="color: white;">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <div class="ms-auto d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <div class="location-badge d-none d-md-flex align-items-center gap-2">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>India</span>
+          </div>
+          
+          <div class="nav-icons">
+            <div class="nav-icon-item">
+              <i class="fas fa-user"></i>
+              <small class="d-block">Account</small>
+            </div>
+            <div class="nav-icon-item">
+              <i class="fas fa-heart"></i>
+              <small class="d-block">Wishlist</small>
+            </div>
+            <div class="nav-icon-item cart-badge">
+              <i class="fas fa-shopping-cart"></i>
+              <small class="d-block">Cart</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== SEARCH BAR ===== -->
+  <div class="container-fluid" style="background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%); padding: 20px;">
+    <div class="search-container">
+      <div class="search-wrapper">
+        <select class="category-select">
+          <option>All Categories</option>
+          <option>Sarees</option>
+          <option>Western Wear</option>
+          <option>Kurtis</option>
+          <option>Gym Clothes</option>
+          <option>Beauty</option>
+          <option>Accessories</option>
+        </select>
+        <input type="text" class="search-input" placeholder="Hey girls... search here!! 💖" id="searchInput">
+        <button class="search-btn" id="searchBtn">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CATEGORY NAV ===== -->
+  <div class="category-nav text-center">
+    <a href="#" class="category-item">🔥 Best Sellers</a>
+    <a href="#" class="category-item">👖 Jeans</a>
+    <a href="#" class="category-item">💫 Today's Deals</a>
+    <a href="#" class="category-item">👗 Sarees</a>
+    <a href="#" class="category-item">🏃‍♀️ Activewear</a>
+    <a href="#" class="category-item">💄 Beauty</a>
+    <a href="#" class="category-item">💎 Jewellery</a>
+    <a href="#" class="category-item">👠 Footwear</a>
+  </div>
+
+  <!-- ===== HERO SECTION ===== -->
+  <div class="hero-section">
+    <div class="hero-decoration"></div>
+    <div class="hero-decoration"></div>
+    <div class="hero-content">
+      <h1>Welcome to Sanya's Style 💖</h1>
+      <p>Discover Your Perfect Look</p>
+      <a href="#products" class="hero-btn">Shop Now</a>
+    </div>
+  </div>
+
+  <!-- ===== PRODUCTS SECTION ===== -->
+  <div class="products-section" id="products">
+    <h2 class="section-title">✨ Trending Collections ✨</h2>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600');">
+              <div class="product-badge">50% OFF</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Elegant Sarees</h3>
+              <p>Traditional wear with modern touch</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600');">
+              <div class="product-badge">NEW</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Women's Jeans</h3>
+              <p>Stylish denim for every occasion</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1583391733981-5adb8c5c8e28?w=600');">
+              <div class="product-badge">TRENDING</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Designer Kurtis</h3>
+              <p>Comfortable & stylish ethnic wear</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600');">
+              <div class="product-badge">30% OFF</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Chudithar Sets</h3>
+              <p>Premium quality traditional attire</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600');">
+              <div class="product-badge">BESTSELLER</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Skincare Essentials</h3>
+              <p>Glow with premium beauty products</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600');">
+              <div class="product-badge">HOT</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Fitness Trackers</h3>
+              <p>Track your wellness journey</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600');">
+              <div class="product-badge">SALE</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Activewear</h3>
+              <p>Stylish gym clothes for fitness</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600');">
+              <div class="product-badge">NEW</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Women's Footwear</h3>
+              <p>Step out in style</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600');">
+              <div class="product-badge">BESTSELLER</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Makeup Essentials</h3>
+              <p>Complete beauty collection</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1522338140262-f46f5913618a?w=600');">
+              <div class="product-badge">POPULAR</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Hair Care</h3>
+              <p>Premium hair care products</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600');">
+              <div class="product-badge">EXCLUSIVE</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Jewellery Collection</h3>
+              <p>Elegant designs for every occasion</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600');">
+              <div class="product-badge">TRENDING</div>
+              <div class="product-overlay"></div>
+            </div>
+            <div class="product-content">
+              <h3>Designer Handbags</h3>
+              <p>Luxury accessories collection</p>
+              <a href="#" class="product-btn">Explore More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="row py-4">
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="footer-column">
+            <h3><i class="fas fa-info-circle"></i> About</h3>
+            <a href="#"><i class="fas fa-chevron-right"></i>About Us</a>
+            <a href="#"><i class="fas fa-chevron-right"></i>Careers</a>
+            <a href="#"><i class="fas fa-chevron-right"></i>Press Releases</a>
+            <a href="#"><i class="fas fa-chevron-right"></i>Sanya's App Cares</a>
+            <a href="#"><i class="fas fa-chevron-right"></i>Gift a Smile</a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="footer-column">
+            <h3><i class="fas fa-question-circle"></i> Help</h3>
+            <a href="#"><i class="fas fa-chevron-right"></i>Payments</a>
+            <a href="#"><i class="fas fa-chevron-right"></i>Shipping</a>
+            <a href="#"><i class="fas fa-chevron-right"></i>Cancellation & Returns</a>
+            <a href="#"><i class="fas fa-chevron-right"></i>FAQ</a>
+            <a href="#"><i class="fas fa-chevron-right"></i>Help Center</a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="footer-column">
+            <h3><i class="fas fa-share-alt"></i> Social</h3>
+            <a href="#"><i class="fab fa-facebook"></i>Facebook</a>
+            <a href="#"><i class="fab fa-instagram"></i>Instagram</a>
+            <a href="#"><i class="fab fa-twitter"></i>Twitter</a>
+            <a href="#"><i class="fab fa-youtube"></i>YouTube</a>
+            <a href="#"><i class="fab fa-pinterest"></i>Pinterest</a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="footer-column">
+            <h3><i class="fas fa-envelope"></i> Newsletter</h3>
+            <p style="color: #666; margin-bottom: 15px;">Subscribe for exclusive offers!</p>
+            <div class="input-group mb-3">
+              <input type="email" class="form-control" placeholder="Your email" style="border-radius: 20px 0 0 20px;">
+              <button class="btn" style="background: linear-gradient(135deg, #ff69b4, #e91e63); color: white; border-radius: 0 20px 20px 0;">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TEAM SECTION ===== -->
+    <div class="team-section">
+      <h2><i class="fas fa-users"></i> Thanks to My Team Members</h2>
+      <div class="team-members">
+        <div class="team-card">
+          <div class="team-avatar">S</div>
+          <h3>Santhapriya</h3>
+          <p style="color: #666; margin-top: 5px;">Co-Founder</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">S</div>
+          <h3>Swethashree</h3>
+          <p style="color: #666; margin-top: 5px;">Co-Founder</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sanya's Women's Style App. All rights reserved. Made with 💖</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCROLL TO TOP ===== -->
+  <div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- ===== BOOTSTRAP JS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ===== CUSTOM JS ===== -->
+  <script>
+    // Search functionality
+    document.getElementById('searchBtn').addEventListener('click', function() {
+      const searchValue = document.getElementById('searchInput').value;
+      if (searchValue.trim()) {
+        // Create a beautiful alert
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success position-fixed top-50 start-50 translate-middle';
+        alertDiv.style.cssText = 'z-index: 9999; padding: 20px 40px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); background: linear-gradient(135deg, #ff69b4, #e91e63); color: white; font-weight: 600;';
+        alertDiv.innerHTML = `<i class="fas fa-search me-2"></i>Searching for "${searchValue}"...`;
+        document.body.appendChild(alertDiv);
+        
+        setTimeout(() => {
+          alertDiv.remove();
+        }, 2000);
+      } else {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-warning position-fixed top-50 start-50 translate-middle';
+        alertDiv.style.cssText = 'z-index: 9999; padding: 20px 40px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); background: linear-gradient(135deg, #ffc107, #ff9800); color: white; font-weight: 600;';
+        alertDiv.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>Please type something to search!';
+        document.body.appendChild(alertDiv);
+        
+        setTimeout(() => {
+          alertDiv.remove();
+        }, 2000);
+      }
+    });
+
+    // Search on Enter key
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('searchBtn').click();
+      }
+    });
+
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Product card click animation
+    document.querySelectorAll('.product-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Create ripple effect
+        const ripple = document.createElement('span');
+        ripple.style.cssText = 'position: absolute; width: 20px; height: 20px; background: white; border-radius: 50%; transform: scale(0); animation: ripple 0.6s ease-out;';
+        
+        const rect = this.getBoundingClientRect();
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        ripple.style.top = (e.clientY - rect.top) + 'px';
+        
+        this.style.position = 'relative';
+        this.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+        
+        // Show notification
+        const notification = document.createElement('div');
+        notification.className = 'position-fixed bottom-0 end-0 m-4';
+        notification.style.cssText = 'z-index: 9999; padding: 20px 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); background: linear-gradient(135deg, #4caf50, #45a049); color: white; font-weight: 600; animation: slideInRight 0.5s ease;';
+        notification.innerHTML = '<i class="fas fa-check-circle me-2"></i>Added to your wishlist! 💖';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.style.animation = 'slideOutRight 0.5s ease';
+          setTimeout(() => notification.remove(), 500);
+        }, 2500);
+      });
+    });
+
+    // Category item click
+    document.querySelectorAll('.category-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all items
+        document.querySelectorAll('.category-item').forEach(i => {
+          i.style.background = 'rgba(255, 255, 255, 0.5)';
+        });
+        
+        // Add active class to clicked item
+        this.style.background = 'white';
+        
+        // Show notification
+        const categoryName = this.textContent.trim();
+        const notification = document.createElement('div');
+        notification.className = 'position-fixed top-50 start-50 translate-middle';
+        notification.style.cssText = 'z-index: 9999; padding: 20px 40px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); background: linear-gradient(135deg, #ff69b4, #e91e63); color: white; font-weight: 600;';
+        notification.innerHTML = `<i class="fas fa-filter me-2"></i>Filtering: ${categoryName}`;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => notification.remove(), 1500);
+      });
+    });
+
+    // Add animation to product cards on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '0';
+          entry.target.style.transform = 'translateY(30px)';
+          
+          setTimeout(() => {
+            entry.target.style.transition = 'all 0.6s ease';
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, 100);
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      observer.observe(card);
+    });
+
+    // Add ripple animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+      
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes slideOutRight {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Add hover effect to nav icons
+    document.querySelectorAll('.nav-icon-item').forEach(icon => {
+      icon.addEventListener('click', function() {
+        const iconType = this.querySelector('small').textContent;
+        
+        const notification = document.createElement('div');
+        notification.className = 'position-fixed top-0 start-50 translate-middle-x mt-5';
+        notification.style.cssText = 'z-index: 9999; padding: 15px 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); background: white; color: #e91e63; font-weight: 600; animation: slideInTop 0.5s ease;';
+        notification.innerHTML = `<i class="fas fa-info-circle me-2"></i>${iconType} feature coming soon! 🎉`;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => notification.remove(), 2000);
+      });
+    });
+
+    // Add slideInTop animation
+    const slideStyle = document.createElement('style');
+    slideStyle.textContent = `
+      @keyframes slideInTop {
+        from {
+          transform: translate(-50%, -100%);
+          opacity: 0;
+        }
+        to {
+          transform: translate(-50%, 0);
+          opacity: 1;
+        }
+      }
+    `;
+    document.head.appendChild(slideStyle);
+  </script>
+</body>
+</html>
